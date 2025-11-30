@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { useRedirectIfAuthenticated } from "@/hooks/use-directed-ifauthenticated";
 
 // Login validation schema
 const loginSchema = z.object({
@@ -20,7 +21,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export function LoginForm() {
   const [formError, setFormError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  useRedirectIfAuthenticated()
   const {
     register,
     handleSubmit,

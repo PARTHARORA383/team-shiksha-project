@@ -9,6 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { Label } from "./ui/label";
+import { useRedirectIfAuthenticated } from "@/hooks/use-directed-ifauthenticated";
 
 
 const signupSchema = z.object({
@@ -22,6 +23,8 @@ type SignupFormData = z.infer<typeof signupSchema>;
 export function SignupForm() {
   const [formError, setFormError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  useRedirectIfAuthenticated()
 
   const {
     register,
