@@ -116,7 +116,7 @@ export const loginHandler = async (req: Request, res: Response) => {
     }
     );
 
-    res.status(200).json({
+    res.status(201).json({
       message: 'Login successful',
       token,
     });
