@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
   return (
-    <div className="flex flex-col items-center justify-center  ">
-      <h1 className="text-xl md:text-3xl font-medium mb-6">
+    <div className="flex flex-col text-center items-center justify-center  ">
+      <h1 className="text-lg md:text-3xl font-medium mb-6">
         Team Shiksha Assignment by{" "}
         <a
           href="https://discord.com/users/partharora6109" 

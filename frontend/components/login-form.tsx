@@ -40,7 +40,7 @@ export function LoginForm() {
 
       const response = await axios.post(`${backend_url}/auth/login`, data);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const token = response.data.token;
         localStorage.setItem("token", token);
         router.push("/Dashboard");

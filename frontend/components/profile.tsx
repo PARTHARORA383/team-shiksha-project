@@ -24,11 +24,12 @@ export function Profile() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(`${backend_url}/user/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`},
       });
 
-      if (response.status === 201) {
+      if (response.status == 200) {
         setUserData(response.data.user);
+        console.log(response.data.user)
       }
     } catch (e) {
       alert("Error fetching data");
