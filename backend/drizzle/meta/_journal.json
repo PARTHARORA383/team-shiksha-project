@@ -22,6 +22,13 @@
       "when": 1764425959449,
       "tag": "0002_famous_the_hunter",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1764504694937,
+      "tag": "0003_motionless_hitman",
+      "breakpoints": true
     }
   ]
 }

@@ -38,6 +38,8 @@ export function LoginForm() {
       const response = await axios.post("http://localhost:8000/auth/login", data);
 
       if (response.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
         router.push("/Dashboard");
       }
     } catch (error: any) {
@@ -94,7 +96,7 @@ export function LoginForm() {
         <p className="text-center text-gray-500 mt-2">
           Don't have an account?{" "}
           <span
-            className="text-blue-600 cursor-pointer hover:underline"
+            className="text-sky-600 cursor-pointer hover:underline"
             onClick={() => router.push("/Signup")}
           >
             Signup

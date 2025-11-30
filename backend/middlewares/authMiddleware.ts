@@ -11,13 +11,16 @@ declare global {
   }
 }
 
-export const verifyToken = (req : Request , res  : Response, next : NextFunction )=>{
+interface JwtPayload {
+  userId: string;
+  email?: string;
+}
 
+export const verifyToken = (req : Request , res  : Response, next : NextFunction )=>{
 
   const authHeader = req.headers.authorization 
   
-
-  if(!authHeader || authHeader.startsWith('Bearer')){
+  if(!authHeader || !authHeader.startsWith("Bearer ")){
     return res.status(401).json({
       message : "Missing or Invalid token"
     })
@@ -27,10 +30,11 @@ export const verifyToken = (req : Request , res  : Response, next : NextFunction
 
 
   try {
-    const decoded = jwt.verify(token , process.env.JWT_SECRET!);
+    const decoded = jwt.verify(token , process.env.JWT_SECRET!) as JwtPayload;
     req.user = decoded;
     next();
   }
+
   catch(e){
     return res.status(403).json({
       message : "Invalid Token"

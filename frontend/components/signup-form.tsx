@@ -1,6 +1,6 @@
 "use client";
 
-import  { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { Label } from "./ui/label";
 
 
 const signupSchema = z.object({
@@ -19,8 +20,8 @@ const signupSchema = z.object({
 type SignupFormData = z.infer<typeof signupSchema>;
 
 export function SignupForm() {
-  const [formError, setFormError] = useState(""); 
-    const [showPassword, setShowPassword] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -33,7 +34,7 @@ export function SignupForm() {
   const router = useRouter();
 
   const handleFormSubmit = async (data: SignupFormData) => {
-    setFormError(""); // reset previous error
+    setFormError(""); 
 
     const requestBody = {
       name: data.name,
@@ -48,10 +49,11 @@ export function SignupForm() {
       );
 
       if (response.status === 201) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
         router.push("/Dashboard");
       }
     } catch (error: any) {
-      // Handle backend error messages
       if (error.response?.data?.message) {
         setFormError(error.response.data.message);
       } else {
@@ -78,16 +80,19 @@ export function SignupForm() {
         )}
 
         <div>
-          <label className="block mb-1 text-gray-700 text-[15px] font-medium">Name</label>
-          <Input type="text" placeholder="Your name" {...register("name")} />
+          <Label className="block mb-1 text-gray-700 text-base font-medium">Name</Label>
+          <Input
+            className="text-base"
+            type="text" placeholder="Your name" {...register("name")} />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
           )}
         </div>
 
         <div>
-          <label className="block mb-1 text-gray-700 text-[15px] font-medium">Email</label>
+          <Label className="block mb-1 text-gray-700 text-base font-medium">Email</Label>
           <Input
+            className="text-base"
             type="email"
             placeholder="you@example.com"
             {...register("email")}
@@ -98,8 +103,9 @@ export function SignupForm() {
         </div>
 
         <div className="relative">
-          <label className="block mb-1 text-gray-700 text-[15px] font-medium">Password</label>
+          <Label className="block mb-1 text-gray-700 text-base font-medium">Password</Label>
           <Input
+            className="text-base"
             type={showPassword ? "text" : "password"}
             placeholder="********"
             {...register("password")}
@@ -125,7 +131,7 @@ export function SignupForm() {
         </button>
 
 
-        
+
         <p className="text-center text-gray-500 mt-2">
           Already have an account?{" "}
           <span
