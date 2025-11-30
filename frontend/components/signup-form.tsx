@@ -43,8 +43,10 @@ export function SignupForm() {
     };
 
     try {
+      const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL 
+
       const response = await axios.post(
-        "http://localhost:8000/auth/signup",
+        `${backend_url}/auth/signup`,
         requestBody
       );
 

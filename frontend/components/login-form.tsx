@@ -35,7 +35,9 @@ export function LoginForm() {
     setFormError("");
 
     try {
-      const response = await axios.post("http://localhost:8000/auth/login", data);
+        const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL 
+
+      const response = await axios.post(`${backend_url}/auth/login`, data);
 
       if (response.status === 200) {
         const token = response.data.token;

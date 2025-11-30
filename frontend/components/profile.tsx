@@ -17,9 +17,9 @@ export function Profile() {
   const [isSaving, setIsSaving] = useState(false);
   const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
 
-  
-  const backend_url = "http://localhost:8000";
-  
+
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL
+
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -71,7 +71,7 @@ export function Profile() {
   const onSubmit = async (data: any) => {
     setIsSaving(true);
     try {
-         const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       const response = await axios.put(`${backend_url}/user/profile`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
