@@ -7,6 +7,11 @@ import { eq } from "drizzle-orm";
 
 const router = Router();
 
+// Utility function to remove password from user object
+const sanitizeUser = (user: any) => {
+  const { password, ...safeUser } = user;
+  return safeUser;
+};
 
 router.get("/profile", verifyToken, async (req: Request, res: Response) => {
   try {
@@ -16,16 +21,16 @@ router.get("/profile", verifyToken, async (req: Request, res: Response) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    return res.status(201).json({ message: "User profile", user: user[0] });
+    return res.status(200).json({ message: "User profile", user: sanitizeUser(user[0]) });
   } catch (e) {
+    console.error(e);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
 
-
 router.put("/profile", verifyToken, async (req: Request, res: Response) => {
   try {
-    const data = req.body; 
+    const data = req.body;
 
     const result = await db
       .update(users)
@@ -39,14 +44,13 @@ router.put("/profile", verifyToken, async (req: Request, res: Response) => {
 
     return res.status(200).json({
       message: "Profile updated successfully",
-      user: result[0],
+      user: sanitizeUser(result[0]),
     });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 router.delete("/profile", verifyToken, async (req: Request, res: Response) => {
   try {
@@ -56,7 +60,7 @@ router.delete("/profile", verifyToken, async (req: Request, res: Response) => {
       return res.status(400).json({ message: "User not found or deletion failed" });
     }
 
-    return res.status(200).json({ message: "User deleted successfully", user: result[0] });
+    return res.status(200).json({ message: "User deleted successfully", user: sanitizeUser(result[0]) });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ message: "Internal server error" });
