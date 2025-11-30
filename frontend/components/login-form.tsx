@@ -50,11 +50,14 @@ export function LoginForm() {
   };
 
   return (
-    <div className="max-w-md min-w-md mx-auto font-sans">
+    <div className="lg:max-w-md lg:min-w-md mx-auto font-sans w-full">
+      
+      
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
         className="relative z-10 p-6 bg-white rounded-3xl space-y-6 shadow overflow-hidden"
       >
+       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-20 rounded-full bg-gradient-to-br from-amber-100 to-amber-300 opacity-30 blur-3xl pointer-events-none z-0" />
         <Heading title="Welcome Back" subtitle="Login to your account" />
 
         {/* General form error block */}

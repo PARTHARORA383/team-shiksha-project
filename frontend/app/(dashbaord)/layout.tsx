@@ -14,10 +14,10 @@ export default function DashboardLayout({
     <SidebarProvider>
 
       <AppSidebar/>
-      <div className="lg:hidden">
-        <SidebarTrigger/>
-      </div>
-    <div className="w-full">
+
+        <SidebarTrigger className="lg:hidden fixed left-3 top-2"/>
+ 
+    <div className="w-full p-2 lg:px-8">
       {children}
     </div>
     </SidebarProvider>

@@ -65,7 +65,7 @@ export function SignupForm() {
   };
 
   return (
-    <div className="max-w-md min-w-md mx-auto font-sans">
+    <div className="lg:max-w-md lg:min-w-md mx-auto  w-full font-sans">
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
         className="relative z-10 p-6 bg-white rounded-3xl space-y-6 shadow overflow-hidden"

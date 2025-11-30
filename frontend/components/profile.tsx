@@ -145,7 +145,7 @@ export function Profile() {
   return (
     <>
 
-      <div className="lg:ml-8 lg:mr-8 mr-2  mt-8 rounded-xl border p-3 relative">
+      <div className=" w-full mt-8 rounded-xl border p-3 relative">
         <ProfileImageSection name={userData.name} email={userData.email} />
       </div>
 
@@ -174,7 +174,7 @@ export function Profile() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="relative border mt-8 lg:ml-8 p-3  mr-2 lg:mr-8 rounded-xl flex flex-col gap-4">
+        className="relative border mt-8  p-3 w-full  rounded-xl flex flex-col gap-4">
         <Button
           className=" absolute right-4 max-w-[200px]"
           onClick={() => setIsEditing(true)}>
@@ -184,9 +184,9 @@ export function Profile() {
         </Button>
 
         <h2 className="text-lg font-medium">Personal Information</h2>
-
         <form className="space-y-4 mt-4 lg:mt-0 w-full lg:max-w-lg" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-center gap-16">
+          {/* First Name & Last Name */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 gap-4">
             <EditableField
               label="First Name"
               name="firstName"
@@ -202,7 +202,8 @@ export function Profile() {
             />
           </div>
 
-          <div className="flex items-center gap-16">
+          {/* City & Country */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 gap-4">
             <EditableField
               label="City/State"
               name="city"
@@ -217,7 +218,8 @@ export function Profile() {
             />
           </div>
 
-          <div className="flex items-center gap-16">
+          {/* Email & Phone */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 gap-4">
             <EditableField
               label="Email"
               name="email"
@@ -236,7 +238,8 @@ export function Profile() {
             />
           </div>
 
-          <div className="flex flex-col">
+          {/* Bio */}
+          <div className="flex flex-col gap-2 w-full">
             <Label>Bio</Label>
             {isEditing ? (
               <Controller
@@ -245,29 +248,27 @@ export function Profile() {
                 render={({ field }) => <Textarea {...field} />}
               />
             ) : (
-              <p className="font-medium text-lg">
-                {userData.profile || "Add the user bio"}
-              </p>
+              <p className="font-medium text-lg">{userData.profile || "Add the user bio"}</p>
             )}
           </div>
 
+          {/* Buttons */}
           {isEditing && (
-            <div className="flex gap-4 mt-4">
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Button
                 type="button"
-                className="bg-red-500 hover:bg-red-700"
+                className="bg-red-500 hover:bg-red-700 w-full sm:w-auto"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
-                className="bg-neutral-900 hover:bg-neutral-800 cursor-pointer flex items-center justify-center gap-2"
+                className="bg-neutral-900 hover:bg-neutral-800 cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto"
                 disabled={isSaving}
               >
                 {isSaving ? (
                   <div className="w-4 h-4 animate-spin rounded-full border border-t-transparent"></div>
-
                 ) : (
                   "Save"
                 )}
@@ -275,6 +276,7 @@ export function Profile() {
             </div>
           )}
         </form>
+
       </motion.div>
     </>
   );
@@ -286,7 +288,7 @@ interface ProfileImageSectionProps {
   email: string;
   name: string;
 }
-
+// Profile Image Section
 export function ProfileImageSection({
   profilePic,
   name,
@@ -299,15 +301,16 @@ export function ProfileImageSection({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="flex items-center gap-4">
+      className="flex items-center gap-4"
+    >
       {profilePic ? (
         <img
           src={profilePic}
           alt={name}
-          className="w-16 h-16 rounded-full object-cover"
+          className="w-16 h-16 sm:w-16 sm:h-16 rounded-full object-cover"
         />
       ) : (
-        <div className="w-16 h-16 rounded-full bg-neutral-900 flex items-center justify-center text-white text-xl font-bold">
+        <div className="w-16 h-16 sm:w-16 sm:h-16 rounded-full bg-neutral-900 flex items-center justify-center text-white text-xl font-bold">
           {firstLetter}
         </div>
       )}
